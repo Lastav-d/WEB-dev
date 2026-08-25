@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Reliable Furniture Works"
+description = "A 3D-first ecommerce storefront for Reliable Furniture Works in Ulhasnagar, showcasing sofas, dining tables, bedroom furniture, and custom pieces with product browsing, cart interactions, and local enquiry calls to action."
+version = "1.0.0"
+id = "artifacts/reliable-furniture-store"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24051
+
+[services.development]
+run = "pnpm --filter @workspace/reliable-furniture-store run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/reliable-furniture-store", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/reliable-furniture-store/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24051"
+BASE_PATH = "/"
